@@ -1,0 +1,67 @@
+<!--
+NYC OTI Locator FAC POST
+-->
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>NYC OTI Locator FAC POST</title>
+    <style>
+      body {font-family: monospace; color: white;}
+      pre {overflow: auto; padding: 1rem;}
+      body,
+      pre {background: #000000;}
+    </style>
+</head>
+<body>
+  <pre id="date"></pre>
+  <pre id="result"></pre>
+
+<script>
+  
+var strFullAddress = "500 7th Ave, New York, NY 10018";
+
+const params = new URLSearchParams({
+  singleLine: strFullAddress,
+  f: "json"
+});
+console.log(params.toString());
+
+	
+// async function so that we can use "await"
+async function geocodeAddress(restUrl) {
+	
+  //prep the fetch call
+  var fetchOptions = {
+                      method: 'POST',
+                      headers: {
+                                 'Ocp-Apim-Subscription-Key': 'e5611ff4fe8c43e68d607cabe602875a'
+                               },
+                     }
+	
+  // use "fetch()" to make the REST call
+  const response = await fetch(restUrl, fetchOptions);
+  const jsonData = await response.json();
+
+  // nicely format and draw the result to the page
+  const now = new Date();
+  document.getElementById("date").textContent = now;
+  document.getElementById("result").textContent = JSON.stringify(jsonData, null, 2);
+}
+
+
+// build the REST GET request URL
+var url = "https://api.nyc.gov/arcgis/rest/services/NYC_OTI_Locator/GeocodeServer/findAddressCandidates?" + params.toString();
+		
+// encode the URL
+url = encodeURI(url);
+	
+// call the async function to make the REST request
+geocodeAddress(url);
+	
+</script>
+  
+</body>
+
+</html>
