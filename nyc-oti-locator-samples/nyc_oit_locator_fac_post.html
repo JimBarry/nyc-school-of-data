@@ -31,12 +31,15 @@ console.log(params.toString());
 	
 // async function so that we can use "await"
 async function geocodeAddress(restUrl) {
-	
+
+//enter your subscription key between the quotes below
+//obtain one by signing up here:
+//https://api-portal.nyc.gov/api-details#api=arcgis-enterprise&operation=Root	
   //prep the fetch call
   var fetchOptions = {
                       method: 'POST',
                       headers: {
-                                 'Ocp-Apim-Subscription-Key': 'e5611ff4fe8c43e68d607cabe602875a'
+                                 'Ocp-Apim-Subscription-Key': ''
                                },
                      }
 	
